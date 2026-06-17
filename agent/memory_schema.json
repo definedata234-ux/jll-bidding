@@ -1,0 +1,952 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://jll.internal/bid-agent/memory_schema.json",
+  "title": "JLL Bid & Leasing Copilot \u2014 Opportunity Memory Record",
+  "description": "GENERATED FILE \u2014 do not hand-edit. Run `python scripts/generate_schemas.py` after changing app/domain/models.py. One record per leasing/purchase opportunity. This is what get_opportunity_state returns and what update_opportunity_state patches.",
+  "properties": {
+    "opportunity_id": {
+      "type": "string"
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "stage": {
+      "enum": [
+        "INTAKE",
+        "SHORTLISTING",
+        "COMPARISON",
+        "PROPOSAL_DRAFTING",
+        "FM_BUNDLING",
+        "NEGOTIATION",
+        "OUTCOME_PENDING",
+        "WON_CLOSEOUT",
+        "LOST_FM_UPSELL",
+        "LOGGED"
+      ],
+      "type": "string",
+      "default": "INTAKE"
+    },
+    "requirements": {
+      "anyOf": [
+        {
+          "properties": {
+            "transaction_type": {
+              "enum": [
+                "lease",
+                "purchase"
+              ],
+              "type": "string"
+            },
+            "property_type": {
+              "enum": [
+                "office",
+                "retail",
+                "industrial",
+                "warehouse",
+                "mixed_use",
+                "land"
+              ],
+              "type": "string"
+            },
+            "locations": {
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1,
+              "type": "array"
+            },
+            "budget": {
+              "properties": {
+                "min_amount": {
+                  "anyOf": [
+                    {
+                      "minimum": 0,
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null
+                },
+                "max_amount": {
+                  "minimum": 0,
+                  "type": "number"
+                },
+                "currency": {
+                  "default": "USD",
+                  "type": "string"
+                },
+                "basis": {
+                  "enum": [
+                    "per_sqft",
+                    "total_annual",
+                    "total_purchase_price",
+                    "per_sqft_purchase"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "max_amount",
+                "basis"
+              ],
+              "type": "object"
+            },
+            "timeline": {
+              "description": "Tentative timeline for the deal \u2014 move-in (lease) or closing (purchase).",
+              "properties": {
+                "target_date": {
+                  "format": "date",
+                  "type": "string"
+                },
+                "decision_deadline": {
+                  "anyOf": [
+                    {
+                      "format": "date",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null
+                },
+                "flexibility": {
+                  "enum": [
+                    "rigid",
+                    "flexible"
+                  ],
+                  "type": "string",
+                  "default": "flexible"
+                }
+              },
+              "required": [
+                "target_date"
+              ],
+              "type": "object"
+            },
+            "square_footage_min": {
+              "anyOf": [
+                {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "square_footage_max": {
+              "anyOf": [
+                {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "seats": {
+              "anyOf": [
+                {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "lease_term_months": {
+              "anyOf": [
+                {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "zoning_classifications": {
+              "items": {
+                "enum": [
+                  "commercial_office",
+                  "commercial_retail",
+                  "industrial_light",
+                  "industrial_heavy",
+                  "mixed_use",
+                  "agricultural",
+                  "special_purpose"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "must_have_facilities": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "nice_to_have_facilities": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "industry": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "special_needs": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            }
+          },
+          "required": [
+            "transaction_type",
+            "property_type",
+            "locations",
+            "budget",
+            "timeline"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "shortlist": {
+      "items": {
+        "properties": {
+          "property_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "currency": {
+            "default": "USD",
+            "type": "string"
+          },
+          "property_type": {
+            "enum": [
+              "office",
+              "retail",
+              "industrial",
+              "warehouse",
+              "mixed_use",
+              "land"
+            ],
+            "type": "string"
+          },
+          "zoning_classification": {
+            "enum": [
+              "commercial_office",
+              "commercial_retail",
+              "industrial_light",
+              "industrial_heavy",
+              "mixed_use",
+              "agricultural",
+              "special_purpose"
+            ],
+            "type": "string"
+          },
+          "transaction_types_available": {
+            "items": {
+              "enum": [
+                "lease",
+                "purchase"
+              ],
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array"
+          },
+          "square_footage": {
+            "exclusiveMinimum": 0,
+            "type": "integer"
+          },
+          "seats_capacity": {
+            "exclusiveMinimum": 0,
+            "type": "integer"
+          },
+          "amenities": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "availability_date": {
+            "format": "date",
+            "type": "string"
+          },
+          "lease_price_per_sqft": {
+            "anyOf": [
+              {
+                "minimum": 0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "lease_term_months_options": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "purchase_price_total": {
+            "anyOf": [
+              {
+                "minimum": 0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "purchase_price_per_sqft": {
+            "anyOf": [
+              {
+                "minimum": 0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "cap_rate_pct": {
+            "anyOf": [
+              {
+                "minimum": 0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "total_occupancy_cost": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "fit_score": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "fit_breakdown": {
+            "properties": {
+              "price": {
+                "maximum": 1,
+                "minimum": 0,
+                "type": "number"
+              },
+              "location": {
+                "maximum": 1,
+                "minimum": 0,
+                "type": "number"
+              },
+              "amenities": {
+                "maximum": 1,
+                "minimum": 0,
+                "type": "number"
+              },
+              "availability": {
+                "maximum": 1,
+                "minimum": 0,
+                "type": "number"
+              }
+            },
+            "required": [
+              "price",
+              "location",
+              "amenities",
+              "availability"
+            ],
+            "type": "object"
+          },
+          "shortlist_status": {
+            "enum": [
+              "primary",
+              "alternate",
+              "stretch"
+            ],
+            "type": "string",
+            "default": "alternate"
+          }
+        },
+        "required": [
+          "property_id",
+          "name",
+          "address",
+          "location",
+          "property_type",
+          "zoning_classification",
+          "transaction_types_available",
+          "square_footage",
+          "seats_capacity",
+          "availability_date",
+          "fit_score",
+          "fit_breakdown"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "market_benchmark": {
+      "anyOf": [
+        {
+          "properties": {
+            "found": {
+              "default": true,
+              "type": "boolean"
+            },
+            "location": {
+              "type": "string"
+            },
+            "property_type": {
+              "enum": [
+                "office",
+                "retail",
+                "industrial",
+                "warehouse",
+                "mixed_use",
+                "land"
+              ],
+              "type": "string"
+            },
+            "transaction_type": {
+              "enum": [
+                "lease",
+                "purchase"
+              ],
+              "type": "string"
+            },
+            "avg_price": {
+              "type": "number"
+            },
+            "basis": {
+              "enum": [
+                "per_sqft",
+                "total_annual",
+                "total_purchase_price",
+                "per_sqft_purchase"
+              ],
+              "type": "string"
+            },
+            "typical_escalation_pct": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "typical_lease_term_months": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "source": {
+              "type": "string"
+            },
+            "confidence": {
+              "enum": [
+                "low",
+                "medium",
+                "high"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "location",
+            "property_type",
+            "transaction_type",
+            "avg_price",
+            "basis",
+            "source",
+            "confidence"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "competitor_intel": {
+      "items": {
+        "properties": {
+          "location": {
+            "type": "string"
+          },
+          "competitor_name": {
+            "type": "string"
+          },
+          "estimated_position": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "confidence": {
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "location",
+          "competitor_name",
+          "estimated_position",
+          "source",
+          "confidence"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "fm_bundle": {
+      "anyOf": [
+        {
+          "properties": {
+            "tier": {
+              "default": "standard",
+              "type": "string"
+            },
+            "services": {
+              "items": {
+                "properties": {
+                  "category": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "indicative_price": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "category",
+                  "description",
+                  "indicative_price"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "indicative_total_price": {
+              "default": 0,
+              "type": "number"
+            },
+            "rationale": {
+              "default": "",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "proposal_drafts": {
+      "items": {
+        "properties": {
+          "artifact_type": {
+            "enum": [
+              "bid_proposal",
+              "negotiation_brief",
+              "fm_bundle_recommendation",
+              "fm_upsell_pitch"
+            ],
+            "type": "string"
+          },
+          "version": {
+            "type": "integer"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "draft",
+              "pending_review",
+              "approved",
+              "rejected"
+            ],
+            "type": "string",
+            "default": "draft"
+          }
+        },
+        "required": [
+          "artifact_type",
+          "version",
+          "created_at",
+          "content"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "negotiation_log": {
+      "items": {
+        "properties": {
+          "date": {
+            "format": "date",
+            "type": "string"
+          },
+          "client_ask": {
+            "type": "string"
+          },
+          "jll_response_options": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "status": {
+            "default": "open",
+            "type": "string"
+          }
+        },
+        "required": [
+          "date",
+          "client_ask"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "outcome": {
+      "properties": {
+        "result": {
+          "enum": [
+            "won",
+            "lost",
+            "pending"
+          ],
+          "type": "string",
+          "default": "pending"
+        },
+        "decided_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "type": "object"
+    },
+    "fm_upsell": {
+      "properties": {
+        "pitched": {
+          "default": false,
+          "type": "boolean"
+        },
+        "pitched_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "artifact_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "status": {
+          "default": "not_applicable",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "pipeline_events": {
+      "items": {
+        "properties": {
+          "timestamp": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "stage": {
+            "enum": [
+              "INTAKE",
+              "SHORTLISTING",
+              "COMPARISON",
+              "PROPOSAL_DRAFTING",
+              "FM_BUNDLING",
+              "NEGOTIATION",
+              "OUTCOME_PENDING",
+              "WON_CLOSEOUT",
+              "LOST_FM_UPSELL",
+              "LOGGED"
+            ],
+            "type": "string"
+          },
+          "event": {
+            "type": "string"
+          },
+          "outcome": {
+            "anyOf": [
+              {
+                "enum": [
+                  "won",
+                  "lost",
+                  "pending"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          }
+        },
+        "required": [
+          "timestamp",
+          "stage",
+          "event"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "flags": {
+      "properties": {
+        "data_gaps": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "confidentiality_notes": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "approvals": {
+      "items": {
+        "properties": {
+          "approval_id": {
+            "type": "string"
+          },
+          "artifact_type": {
+            "enum": [
+              "bid_proposal",
+              "negotiation_brief",
+              "fm_bundle_recommendation",
+              "fm_upsell_pitch"
+            ],
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "urgency": {
+            "default": "normal",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "pending",
+              "approved",
+              "rejected"
+            ],
+            "type": "string",
+            "default": "pending"
+          },
+          "requested_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "decided_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "reviewer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          }
+        },
+        "required": [
+          "approval_id",
+          "artifact_type",
+          "summary",
+          "requested_at"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "audit_log": {
+      "items": {
+        "properties": {
+          "timestamp": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "timestamp",
+          "reason"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "opportunity_id",
+    "client_name",
+    "created_at",
+    "updated_at"
+  ],
+  "type": "object"
+}

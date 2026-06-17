@@ -1,0 +1,86 @@
+[
+  {
+    "location": "Austin",
+    "property_type": "office",
+    "transaction_type": "lease",
+    "avg_price": 39,
+    "basis": "per_sqft",
+    "typical_escalation_pct": 3.0,
+    "typical_lease_term_months": 60,
+    "source": "JLL Research Q2 2026 Market Report",
+    "confidence": "high"
+  },
+  {
+    "location": "Austin",
+    "property_type": "office",
+    "transaction_type": "purchase",
+    "avg_price": 425,
+    "basis": "per_sqft_purchase",
+    "source": "JLL Capital Markets Q2 2026 Report",
+    "confidence": "medium"
+  },
+  {
+    "location": "Chicago",
+    "property_type": "office",
+    "transaction_type": "lease",
+    "avg_price": 50,
+    "basis": "per_sqft",
+    "typical_escalation_pct": 3.5,
+    "typical_lease_term_months": 60,
+    "source": "JLL Research Q2 2026 Market Report",
+    "confidence": "high"
+  },
+  {
+    "location": "Chicago",
+    "property_type": "industrial",
+    "transaction_type": "purchase",
+    "avg_price": 140,
+    "basis": "per_sqft_purchase",
+    "source": "JLL Capital Markets Q1 2026 Report",
+    "confidence": "medium"
+  },
+  {
+    "location": "Denver",
+    "property_type": "office",
+    "transaction_type": "lease",
+    "avg_price": 34,
+    "basis": "per_sqft",
+    "typical_escalation_pct": 3.0,
+    "typical_lease_term_months": 60,
+    "source": "JLL Research Q1 2026 Market Report",
+    "confidence": "medium"
+  },
+  {
+    "location": "Denver",
+    "property_type": "retail",
+    "transaction_type": "lease",
+    "avg_price": 42,
+    "basis": "per_sqft",
+    "typical_escalation_pct": 2.5,
+    "typical_lease_term_months": 60,
+    "source": "JLL Research Q1 2026 Market Report",
+    "confidence": "medium"
+  },
+  {
+    "location": "Atlanta",
+    "property_type": "office",
+    "transaction_type": "lease",
+    "avg_price": 29,
+    "basis": "per_sqft",
+    "typical_escalation_pct": 2.5,
+    "typical_lease_term_months": 60,
+    "source": "JLL Research Q2 2026 Market Report",
+    "confidence": "high"
+  },
+  {
+    "location": "Seattle",
+    "property_type": "office",
+    "transaction_type": "lease",
+    "avg_price": 47,
+    "basis": "per_sqft",
+    "typical_escalation_pct": 4.0,
+    "typical_lease_term_months": 60,
+    "source": "JLL Research Q1 2026 Market Report",
+    "confidence": "medium"
+  }
+]

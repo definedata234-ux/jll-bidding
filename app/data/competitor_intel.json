@@ -1,0 +1,44 @@
+[
+  {
+    "location": "Austin",
+    "competitor_name": "CBRE",
+    "estimated_position": "Typically bids 3-5% below market rate with shorter free-rent periods to win quickly.",
+    "source": "Past win/loss notes, Q1 2026",
+    "confidence": "medium"
+  },
+  {
+    "location": "Austin",
+    "competitor_name": "Cushman & Wakefield",
+    "estimated_position": "Competes mainly on tenant improvement allowance rather than headline rent.",
+    "source": "Broker community intel",
+    "confidence": "low"
+  },
+  {
+    "location": "Chicago",
+    "competitor_name": "CBRE",
+    "estimated_position": "Strong incumbent relationships in the Loop submarket; historically hard to dislodge on renewals.",
+    "source": "Past win/loss notes, Q4 2025",
+    "confidence": "medium"
+  },
+  {
+    "location": "Denver",
+    "competitor_name": "Newmark",
+    "estimated_position": "Aggressive on flexible lease terms and early termination clauses for growth-stage tenants.",
+    "source": "Broker community intel",
+    "confidence": "low"
+  },
+  {
+    "location": "Atlanta",
+    "competitor_name": "Cushman & Wakefield",
+    "estimated_position": "Often bundles minor build-out costs into effective rent to appear more competitive headline-rate.",
+    "source": "Past win/loss notes, Q2 2026",
+    "confidence": "medium"
+  },
+  {
+    "location": "Seattle",
+    "competitor_name": "CBRE",
+    "estimated_position": "Holds a dominant share of tech-sector leasing relationships in this submarket.",
+    "source": "Broker community intel",
+    "confidence": "medium"
+  }
+]

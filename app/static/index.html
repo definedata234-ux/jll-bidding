@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JLL Bid Copilot</title>
+  <link rel="icon" type="image/svg+xml" href="/static/jll-logo.svg" />
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ─── SIDEBAR ─────────────────────────────────────────── -->
+  <nav class="sidebar">
+    <div class="sb-logo-box">
+      <img src="/static/jll-logo.svg" alt="JLL" class="sb-logo" />
+    </div>
+    <ul class="nav-list">
+      <li class="nav-item active" data-view="copilot">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <span>Bid Copilot</span>
+      </li>
+      <li class="nav-item" data-view="dashboard">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Dashboard</span>
+      </li>
+      <li class="nav-item" data-view="opportunities">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        <span>Opportunities</span>
+        <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+      </li>
+      <li class="nav-item" data-view="requirements">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        <span>Requirements</span>
+        <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+      </li>
+      <li class="nav-item" data-view="property-search">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <span>Property Search</span>
+      </li>
+      <li class="nav-item" data-view="comparisons">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        <span>Comparisons</span>
+      </li>
+      <li class="nav-item" data-view="proposals">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <span>Proposals</span>
+      </li>
+      <li class="nav-item" data-view="negotiations">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        <span>Negotiations</span>
+      </li>
+      <li class="nav-item" data-view="fm-services">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>FM Services</span>
+      </li>
+      <li class="nav-item" data-view="winloss">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        <span>Win / Loss</span>
+      </li>
+      <li class="nav-item" data-view="pipeline">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        <span>Pipeline</span>
+      </li>
+      <li class="nav-item" data-view="reports">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 2h14a2 2 0 012 2v16a2 2 0 01-2 2H5a2 2 0 01-2-2V4a2 2 0 012-2z"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="12" y2="17"/></svg>
+        <span>Reports</span>
+      </li>
+      <li class="nav-item" data-view="knowledge">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+        <span>Knowledge Center</span>
+      </li>
+    </ul>
+    <div class="sb-user">
+      <div class="sb-avatar">NS</div>
+      <div class="sb-info">
+        <div class="sb-name">Neha Sharma</div>
+        <div class="sb-role">Bid Manager</div>
+      </div>
+      <span class="sb-online-dot" title="Online"></span>
+    </div>
+  </nav>
+
+  <!-- ─── MAIN CONTENT ─────────────────────────────────────── -->
+  <main class="main-content">
+
+    <!-- Shared header — title + KPIs update per view -->
+    <header class="dash-header">
+      <div class="dash-title-block">
+        <h1 class="dash-h1" id="viewTitle">JLL Bid Copilot</h1>
+        <p class="dash-sub" id="viewSub">AI-Powered Bidding &amp; Office Leasing Assistant</p>
+      </div>
+      <div class="kpi-row" id="kpiRow">
+        <div class="kpi-card" data-tooltip="3 Shortlisting · 5 Proposal · 2 Negotiation · 2 Won">
+          <div class="kpi-text">
+            <div class="kpi-label">Active Opportunities</div>
+            <div class="kpi-val" id="kpiActive">12</div>
+          </div>
+          <div class="kpi-ico kpi-ico--purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+        </div>
+        <div class="kpi-card" data-tooltip="2 awaiting approval · 3 ready to submit">
+          <div class="kpi-text">
+            <div class="kpi-label">Proposals in Draft</div>
+            <div class="kpi-val" id="kpiDraft">5</div>
+          </div>
+          <div class="kpi-ico kpi-ico--blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+        </div>
+        <div class="kpi-card" data-tooltip="Last 90 days: 4 won of 10 closed deals">
+          <div class="kpi-text">
+            <div class="kpi-label">Win Rate</div>
+            <div class="kpi-val kpi-val--green" id="kpiWinRate">38%</div>
+            <svg class="kpi-spark" viewBox="0 0 80 28" fill="none" preserveAspectRatio="none">
+              <polyline points="0,24 14,20 28,22 42,12 56,9 80,3" stroke="#10b981" stroke-width="2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="kpi-ico kpi-ico--green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          </div>
+        </div>
+        <div class="kpi-card" data-tooltip="Lease: ₹32.1 Cr · FM Services: ₹16.5 Cr">
+          <div class="kpi-text">
+            <div class="kpi-label">Pipeline Value</div>
+            <div class="kpi-val" id="kpiPipeline">&#8377; 48.6 Cr</div>
+          </div>
+          <div class="kpi-ico kpi-ico--orange">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-new-bid" id="newBidBtn">+ New Bid</button>
+        <button class="demo-btn" id="loadDemoBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Run AI Demo
+        </button>
+      </div>
+    </header>
+
+    <!-- All views live here -->
+    <div class="view-container">
+
+      <!-- ══ VIEW: BID COPILOT ═══════════════════════════════ -->
+      <div class="view view--active" id="view-copilot">
+        <div class="dash-body">
+
+          <!-- Workflow stepper -->
+          <div class="card workflow-card">
+            <div class="card-head-row">
+              <span class="card-title">Bidding Workflow</span>
+              <span class="card-hint">Click a stage to see what the AI did</span>
+            </div>
+            <div class="stepper" id="stepper"></div>
+            <div class="story-panel" id="storyPanel" style="display:none">
+              <button class="story-close" id="storyClose">&#10005;</button>
+              <div class="story-ico" id="storyIco"></div>
+              <div class="story-body">
+                <div class="story-title" id="storyTitle"></div>
+                <div class="story-text" id="storyText"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3-col grid -->
+          <div class="tri-grid">
+            <div class="card">
+              <div class="card-head-row">
+                <span class="card-title">Client Requirements</span>
+                <button class="btn-edit" id="editReqBtn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                  Edit
+                </button>
+              </div>
+              <div id="reqPanel"><div class="placeholder-hint">Click "Run AI Demo" or create an opportunity to populate requirements.</div></div>
+            </div>
+            <div class="card">
+              <div class="card-head-row"><span class="card-title">Market Overview</span></div>
+              <div class="mkt-stats-row">
+                <div class="mkt-stat"><div class="mkt-label">Avg. Market Rent</div><div class="mkt-val">&#8377;142 / sq.ft</div><div class="mkt-sub">(All Inclusive)</div></div>
+                <div class="mkt-stat"><div class="mkt-label">Vacancy Rate</div><div class="mkt-val">17%</div><div class="mkt-sub">(Bengaluru)</div></div>
+                <div class="mkt-stat"><div class="mkt-label">Supply (Next 12M)</div><div class="mkt-val">26.5 Mn</div><div class="mkt-sub">sq.ft</div></div>
+              </div>
+              <div class="chart-wrap">
+                <div class="chart-title-sm">Rent Trend — All Inclusive (₹/sq.ft)</div>
+                <div class="chart-inner">
+                  <div class="chart-y"><span>160</span><span>150</span><span>140</span><span>130</span><span>120</span></div>
+                  <svg class="rent-svg" viewBox="0 0 340 90" preserveAspectRatio="none">
+                    <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2563eb" stop-opacity="0.18"/><stop offset="100%" stop-color="#2563eb" stop-opacity="0.02"/></linearGradient></defs>
+                    <line x1="0" y1="10" x2="340" y2="10" stroke="#e8ecf0" stroke-width="0.8"/><line x1="0" y1="30" x2="340" y2="30" stroke="#e8ecf0" stroke-width="0.8"/><line x1="0" y1="50" x2="340" y2="50" stroke="#e8ecf0" stroke-width="0.8"/><line x1="0" y1="70" x2="340" y2="70" stroke="#e8ecf0" stroke-width="0.8"/>
+                    <polygon points="0,66 68,60 136,54 204,50 272,44 340,34 340,90 0,90" fill="url(#g1)"/>
+                    <polyline points="0,66 68,60 136,54 204,50 272,44 340,34" fill="none" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="0" cy="66" r="3.5" fill="#fff" stroke="#2563eb" stroke-width="2"/><circle cx="68" cy="60" r="3.5" fill="#fff" stroke="#2563eb" stroke-width="2"/><circle cx="136" cy="54" r="3.5" fill="#fff" stroke="#2563eb" stroke-width="2"/><circle cx="204" cy="50" r="3.5" fill="#fff" stroke="#2563eb" stroke-width="2"/><circle cx="272" cy="44" r="3.5" fill="#fff" stroke="#2563eb" stroke-width="2"/><circle cx="340" cy="34" r="3.5" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+                  </svg>
+                </div>
+                <div class="chart-x"><span>Q4 2023</span><span>Q1 2024</span><span>Q2 2024</span><span>Q3 2024</span><span>Q4 2024</span><span>Q1 2025</span></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-head-row"><span class="card-title">Competitor Analysis</span><span class="card-hint">Click row to expand</span></div>
+              <table class="comp-tbl"><thead><tr><th>Competitor</th><th>&#8377;/sq.ft</th><th>Key Strengths</th><th>Risk</th></tr></thead><tbody id="compTbody"></tbody></table>
+            </div>
+          </div>
+
+          <!-- Properties table -->
+          <div class="card">
+            <div class="card-head-row">
+              <span class="card-title">Top Shortlisted Properties</span>
+              <a class="link-view-all" href="#" id="viewAllLink">View All</a>
+            </div>
+            <div class="filter-bar">
+              <div class="filter-group"><label class="filter-label">Location</label>
+                <select class="filter-sel" id="filterLocation"><option value="">All Locations</option><option value="whitefield">Whitefield</option><option value="orr">Outer Ring Road</option><option value="bellandur">Bellandur</option></select></div>
+              <div class="filter-group"><label class="filter-label">Budget (&#8377;/sq.ft)</label>
+                <select class="filter-sel" id="filterBudget"><option value="">All Budgets</option><option value="low">Below &#8377;135</option><option value="mid">&#8377;135–&#8377;145</option><option value="high">Above &#8377;145</option></select></div>
+              <div class="filter-group"><label class="filter-label">Min Seats</label>
+                <select class="filter-sel" id="filterSeats"><option value="">Any</option><option value="200">200+</option><option value="250">250+</option><option value="300">300+</option></select></div>
+              <div class="filter-group"><label class="filter-label">Sort By</label>
+                <select class="filter-sel" id="filterSort"><option value="fit">Best Fit First</option><option value="rent_asc">Rent: Low to High</option><option value="rent_desc">Rent: High to Low</option><option value="avail">Earliest Available</option></select></div>
+              <span class="filter-count" id="filterCount">Showing 5 properties</span>
+            </div>
+            <table class="props-tbl"><thead><tr><th colspan="2">Property</th><th>Location</th><th>Rent (&#8377;/sq.ft)</th><th>Size (sq.ft)</th><th>Availability</th><th>Fit Score</th><th>Action</th></tr></thead><tbody id="propsTbody"></tbody></table>
+          </div>
+
+          <!-- Pipeline bar -->
+          <div class="card pipeline-card">
+            <div class="card-title">Current Opportunity Status</div>
+            <div class="pipeline-bar" id="pipelineBar">
+              <div class="pp">Qualification <span class="pp-n">3</span></div>
+              <div class="pp">Requirements <span class="pp-n">4</span></div>
+              <div class="pp">Shortlisting <span class="pp-n">3</span></div>
+              <div class="pp pp--active">Proposal <span class="pp-n pp-n--active">5</span></div>
+              <div class="pp">Negotiation <span class="pp-n">2</span></div>
+              <div class="pp pp--won">Won <span class="pp-n pp-n--won">4</span></div>
+              <div class="pp pp--lost">Lost <span class="pp-n pp-n--lost">1</span></div>
+              <div class="pp pp--fm">FM Upsell <span class="pp-n pp-n--fm">2</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div><!-- /view-copilot -->
+
+      <!-- ══ VIEW: DASHBOARD ════════════════════════════════ -->
+      <div class="view" id="view-dashboard">
+        <div class="dash-body">
+          <div class="vw-grid-2">
+            <div class="card">
+              <div class="card-head-row"><span class="card-title">Recent Opportunities</span><span class="badge-red">Today</span></div>
+              <table class="data-tbl">
+                <thead><tr><th>Client</th><th>Location</th><th>Seats</th><th>Stage</th><th>Value</th><th>Owner</th></tr></thead>
+                <tbody>
+                  <tr class="tr-highlight"><td><strong>ABC Tech Pvt Ltd</strong></td><td>Bengaluru ORR</td><td>250</td><td><span class="stage-badge stage-proposal">Proposal</span></td><td>&#8377;8.3 Cr</td><td>Neha S.</td></tr>
+                  <tr><td>HCL Technologies</td><td>Bengaluru ORR</td><td>450</td><td><span class="stage-badge stage-intake">Intake</span></td><td>&#8377;15.6 Cr</td><td>Neha S.</td></tr>
+                  <tr><td>Wipro Ltd</td><td>Chennai IT Park</td><td>300</td><td><span class="stage-badge stage-negotiation">Negotiation</span></td><td>&#8377;11.8 Cr</td><td>Priya S.</td></tr>
+                  <tr><td>Infosys Ltd</td><td>Hyderabad HITEC</td><td>500</td><td><span class="stage-badge stage-shortlist">Shortlisting</span></td><td>&#8377;22.0 Cr</td><td>Rahul K.</td></tr>
+                  <tr><td>TCS Ltd</td><td>Pune Hinjewadi</td><td>150</td><td><span class="stage-badge stage-won">Won</span></td><td>&#8377;4.2 Cr</td><td>Neha S.</td></tr>
+                  <tr><td>Accenture India</td><td>Mumbai BKC</td><td>800</td><td><span class="stage-badge stage-fm">FM Upsell</span></td><td>&#8377;28.4 Cr</td><td>Rahul K.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card">
+              <div class="card-head-row"><span class="card-title">FM Revenue Pipeline</span></div>
+              <div class="fm-rev-list">
+                <div class="fm-rev-row"><span class="fm-rev-client">TCS Ltd (Won — Active FM)</span><span class="fm-rev-amt green-text">&#8377;3.2L / mo</span></div>
+                <div class="fm-rev-row"><span class="fm-rev-client">ABC Tech Pvt Ltd (Proposal)</span><span class="fm-rev-amt orange-text">&#8377;4.45L / mo</span></div>
+                <div class="fm-rev-row"><span class="fm-rev-client">Accenture (FM Upsell)</span><span class="fm-rev-amt blue-text">&#8377;8.1L / mo</span></div>
+                <div class="fm-rev-row"><span class="fm-rev-client">Wipro (If Won)</span><span class="fm-rev-amt muted-text">&#8377;5.6L / mo</span></div>
+              </div>
+              <div class="fm-rev-total-row">
+                <span>Total FM Pipeline</span>
+                <span class="fm-rev-total">&#8377; 21.35L / month</span>
+              </div>
+              <div class="card-head-row" style="margin-top:16px"><span class="card-title">Performance — Q2 FY26</span></div>
+              <div class="perf-grid">
+                <div class="perf-item"><div class="perf-val">4</div><div class="perf-lbl">Deals Won</div></div>
+                <div class="perf-item"><div class="perf-val red-text">1</div><div class="perf-lbl">Deals Lost</div></div>
+                <div class="perf-item"><div class="perf-val">38%</div><div class="perf-lbl">Win Rate</div></div>
+                <div class="perf-item"><div class="perf-val green-text">73%</div><div class="perf-lbl">FM Attach</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /view-dashboard -->
+
+      <!-- ══ VIEW: OPPORTUNITIES ════════════════════════════ -->
+      <div class="view" id="view-opportunities">
+        <div class="dash-body">
+          <div class="card">
+            <div class="card-head-row">
+              <span class="card-title">All Opportunities</span>
+              <button class="btn-new-bid-inline" id="newBidBtn2">+ New Bid</button>
+            </div>
+            <div class="filter-bar">
+              <div class="filter-group"><label class="filter-label">Search</label><input type="text" class="filter-sel" id="oppSearch" placeholder="Client name..." style="min-width:160px"/></div>
+              <div class="filter-group"><label class="filter-label">Stage</label>
+                <select class="filter-sel" id="oppStageFilter">
+                  <option value="">All Stages</option><option>Intake</option><option>Shortlisting</option><option>Proposal</option><option>Negotiation</option><option>Won</option><option>Lost</option><option>FM Upsell</option>
+                </select></div>
+              <div class="filter-group"><label class="filter-label">Owner</label>
+                <select class="filter-sel"><option value="">All Owners</option><option>Neha Sharma</option><option>Rahul Kumar</option><option>Priya Singh</option></select></div>
+              <span class="filter-count">12 opportunities</span>
+            </div>
+            <table class="data-tbl">
+              <thead><tr><th>Client</th><th>Location</th><th>Seats</th><th>Stage</th><th>Est. Value</th><th>FM Bundle</th><th>Owner</th><th>Last Updated</th><th></th></tr></thead>
+              <tbody>
+                <tr class="tr-highlight"><td><strong>ABC Tech Pvt Ltd</strong></td><td>Bengaluru ORR</td><td>250</td><td><span class="stage-badge stage-proposal">Proposal</span></td><td>&#8377;8.3 Cr</td><td><span class="fm-badge fm-yes">&#8377;4.45L/mo</span></td><td>Neha S.</td><td>Today</td><td><button class="btn-row-action" onclick="switchView('copilot')">Open</button></td></tr>
+                <tr><td>HCL Technologies</td><td>Bengaluru ORR</td><td>450</td><td><span class="stage-badge stage-intake">Intake</span></td><td>&#8377;15.6 Cr</td><td><span class="fm-badge fm-no">Pending</span></td><td>Neha S.</td><td>Today</td><td><button class="btn-row-action">Open</button></td></tr>
+                <tr><td>Wipro Ltd</td><td>Chennai IT Park</td><td>300</td><td><span class="stage-badge stage-negotiation">Negotiation</span></td><td>&#8377;11.8 Cr</td><td><span class="fm-badge fm-yes">&#8377;5.6L/mo</span></td><td>Priya S.</td><td>Yesterday</td><td><button class="btn-row-action">Open</button></td></tr>
+                <tr><td>Infosys Ltd</td><td>Hyderabad HITEC</td><td>500</td><td><span class="stage-badge stage-shortlist">Shortlisting</span></td><td>&#8377;22.0 Cr</td><td><span class="fm-badge fm-no">Pending</span></td><td>Rahul K.</td><td>Yesterday</td><td><button class="btn-row-action">Open</button></td></tr>
+                <tr><td>TCS Ltd</td><td>Pune Hinjewadi</td><td>150</td><td><span class="stage-badge stage-won">Won ✓</span></td><td>&#8377;4.2 Cr</td><td><span class="fm-badge fm-yes">&#8377;3.2L/mo</span></td><td>Neha S.</td><td>2 days ago</td><td><button class="btn-row-action">View</button></td></tr>
+                <tr><td>Accenture India</td><td>Mumbai BKC</td><td>800</td><td><span class="stage-badge stage-fm">FM Upsell</span></td><td>&#8377;28.4 Cr</td><td><span class="fm-badge fm-upsell">&#8377;8.1L/mo</span></td><td>Rahul K.</td><td>3 days ago</td><td><button class="btn-row-action">Open</button></td></tr>
+                <tr><td>Cognizant</td><td>Bengaluru Whitefield</td><td>200</td><td><span class="stage-badge stage-proposal">Proposal</span></td><td>&#8377;6.8 Cr</td><td><span class="fm-badge fm-no">Pending</span></td><td>Priya S.</td><td>4 days ago</td><td><button class="btn-row-action">Open</button></td></tr>
+                <tr><td>Tech Mahindra</td><td>Noida Sec 62</td><td>350</td><td><span class="stage-badge stage-shortlist">Shortlisting</span></td><td>&#8377;9.4 Cr</td><td><span class="fm-badge fm-no">Pending</span></td><td>Rahul K.</td><td>5 days ago</td><td><button class="btn-row-action">Open</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div><!-- /view-opportunities -->
+
+      <!-- ══ VIEW: REQUIREMENTS ═════════════════════════════ -->
+      <div class="view" id="view-requirements">
+        <div class="dash-body">
+          <div class="card" style="max-width:760px">
+            <div class="card-head-row">
+              <span class="card-title">Requirement Intake — ABC Tech Pvt Ltd</span>
+              <span class="stage-badge stage-proposal">Active: Proposal Stage</span>
+            </div>
+            <div class="req-form-grid">
+              <div class="rfg-section"><div class="rfg-head">Client Details</div>
+                <div class="rfg-row"><label>Company Name</label><input class="rfg-inp" value="ABC Tech Pvt Ltd" /></div>
+                <div class="rfg-row"><label>Industry</label><input class="rfg-inp" value="IT / ITES" /></div>
+                <div class="rfg-row"><label>Contact Person</label><input class="rfg-inp" value="Rajesh Menon, Head of Admin" /></div>
+              </div>
+              <div class="rfg-section"><div class="rfg-head">Space Requirements</div>
+                <div class="rfg-row"><label>Location Preference</label><input class="rfg-inp" value="Bengaluru ORR, Whitefield" /></div>
+                <div class="rfg-row"><label>Seating Capacity</label><input class="rfg-inp" value="250 seats" /></div>
+                <div class="rfg-row"><label>Office Area (sq.ft)</label><input class="rfg-inp" value="40,000 – 55,000 sq.ft" /></div>
+                <div class="rfg-row"><label>Must-Have Facilities</label><input class="rfg-inp" value="Parking, Pantry, Power Backup, 24/7 Security" /></div>
+              </div>
+              <div class="rfg-section"><div class="rfg-head">Commercial Terms</div>
+                <div class="rfg-row"><label>Budget Range</label><input class="rfg-inp" value="₹130 – ₹150 / sq.ft (All Inclusive)" /></div>
+                <div class="rfg-row"><label>Lease Duration</label><input class="rfg-inp" value="5 Years" /></div>
+                <div class="rfg-row"><label>Move-in Timeline</label><input class="rfg-inp" value="Q3 2026 (Flexible ±2 months)" /></div>
+                <div class="rfg-row"><label>Transaction Type</label><input class="rfg-inp" value="Lease" /></div>
+              </div>
+              <div class="rfg-section"><div class="rfg-head">FM Services Needed</div>
+                <div class="rfg-checks">
+                  <label><input type="checkbox" checked /> Pantry Management</label>
+                  <label><input type="checkbox" checked /> Washroom Services</label>
+                  <label><input type="checkbox" checked /> Electrical Maintenance</label>
+                  <label><input type="checkbox" checked /> Plumbing Services</label>
+                  <label><input type="checkbox" checked /> General Ops Support</label>
+                  <label><input type="checkbox" checked /> Stationery &amp; Supplies</label>
+                </div>
+              </div>
+            </div>
+            <div class="rfg-actions">
+              <button class="btn-primary-red" onclick="switchView('copilot')">View AI Analysis</button>
+              <button class="btn-secondary">Save Changes</button>
+            </div>
+          </div>
+        </div>
+      </div><!-- /view-requirements -->
+
+      <!-- ══ VIEW: PROPERTY SEARCH ══════════════════════════ -->
+      <div class="view" id="view-property-search">
+        <div class="dash-body">
+          <div class="card">
+            <div class="card-head-row"><span class="card-title">Property Inventory — Bengaluru</span><span class="filter-count">23 available</span></div>
+            <div class="filter-bar">
+              <div class="filter-group"><label class="filter-label">Location</label><select class="filter-sel"><option>All Sub-markets</option><option>Whitefield</option><option>Outer Ring Road</option><option>Bellandur</option><option>Sarjapur</option></select></div>
+              <div class="filter-group"><label class="filter-label">Grade</label><select class="filter-sel"><option>All Grades</option><option>A+</option><option>A</option></select></div>
+              <div class="filter-group"><label class="filter-label">Rent (₹/sqft)</label><select class="filter-sel"><option>Any</option><option>Below ₹135</option><option>₹135–₹150</option><option>Above ₹150</option></select></div>
+              <div class="filter-group"><label class="filter-label">Min Area</label><select class="filter-sel"><option>Any</option><option>20,000+</option><option>40,000+</option><option>60,000+</option></select></div>
+            </div>
+            <div class="prop-cards-grid" id="propCardsGrid">
+              <!-- rendered by JS -->
+            </div>
+          </div>
+        </div>
+      </div><!-- /view-property-search -->
+
+      <!-- ══ VIEW: COMPARISONS ══════════════════════════════ -->
+      <div class="view" id="view-comparisons">
+        <div class="dash-body">
+          <div class="card">
+            <div class="card-head-row"><span class="card-title">Property Comparison Matrix — ABC Tech Pvt Ltd</span></div>
+            <table class="data-tbl comparison-tbl">
+              <thead>
+                <tr>
+                  <th>Criteria</th>
+                  <th class="col-best">Prestige Tech Park <span class="badge-green">Top Pick</span></th>
+                  <th>Embassy Manyata</th>
+                  <th>RMZ Ecoworld</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="crit-lbl">Location</td><td class="col-best">Whitefield</td><td>Outer Ring Road</td><td>Bellandur</td></tr>
+                <tr><td class="crit-lbl">Rent / sq.ft</td><td class="col-best green-text"><strong>&#8377;138</strong></td><td>&#8377;143</td><td>&#8377;135</td></tr>
+                <tr><td class="crit-lbl">Area (sq.ft)</td><td class="col-best">50,000</td><td>60,000</td><td>45,000</td></tr>
+                <tr><td class="crit-lbl">Seat Capacity</td><td class="col-best">280</td><td>340</td><td>255</td></tr>
+                <tr><td class="crit-lbl">Availability</td><td class="col-best">Jul 2026 ✓</td><td>Aug 2026</td><td>Jun 2026 ✓</td></tr>
+                <tr><td class="crit-lbl">Grade</td><td class="col-best">A+</td><td>A+</td><td>A</td></tr>
+                <tr><td class="crit-lbl">Parking</td><td class="col-best">✓</td><td>✓</td><td>✓</td></tr>
+                <tr><td class="crit-lbl">Pantry</td><td class="col-best">✓</td><td>✓</td><td>✓</td></tr>
+                <tr><td class="crit-lbl">Power Backup</td><td class="col-best">✓</td><td>✓</td><td>✓</td></tr>
+                <tr><td class="crit-lbl">Gym / Cafeteria</td><td class="col-best">✓ Both</td><td>Food Court only</td><td>Gym only</td></tr>
+                <tr><td class="crit-lbl">Annual Rent (Cr)</td><td class="col-best green-text"><strong>&#8377;8.28 Cr</strong></td><td>&#8377;10.30 Cr</td><td>&#8377;7.29 Cr</td></tr>
+                <tr><td class="crit-lbl">AI Fit Score</td><td class="col-best"><strong style="color:#10b981">92%</strong></td><td>88%</td><td>85%</td></tr>
+              </tbody>
+            </table>
+            <div class="card-head-row" style="margin-top:18px"><span class="card-title">Competitor Comparison</span></div>
+            <table class="data-tbl">
+              <thead><tr><th>Broker</th><th>Quoted ₹/sqft</th><th>Key Strengths</th><th>FM Offering</th><th>JLL Advantage</th></tr></thead>
+              <tbody>
+                <tr><td><strong>JLL (Our Bid)</strong></td><td class="green-text"><strong>₹138–₹145</strong></td><td>Integrated Leasing + FM</td><td class="green-text">Integrated ✓</td><td>—</td></tr>
+                <tr><td>CBRE</td><td>₹145</td><td>Strong landlord relations, ORR market leader</td><td class="red-text">Separate vendor</td><td>JLL 5% below CBRE on rent</td></tr>
+                <tr><td>Colliers</td><td>₹140</td><td>Flexible lock-in (3+3 yr option)</td><td class="red-text">Separate vendor</td><td>JLL offers integrated FM, saves ₹6–8L/yr</td></tr>
+                <tr><td>Knight Frank</td><td>₹148</td><td>Premium advisory, brand equity</td><td class="red-text">Not offered</td><td>JLL 7% below KF, FM included</td></tr>
+                <tr><td>C&amp;W</td><td>₹146</td><td>FM capabilities, large network</td><td class="orange-text">Partial (not integrated)</td><td>JLL single contract vs C&amp;W 2-vendor model</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div><!-- /view-comparisons -->
+
+      <!-- ══ VIEW: PROPOSALS ════════════════════════════════ -->
+      <div class="view" id="view-proposals">
+        <div class="dash-body">
+          <div class="card">
+            <div class="card-head-row"><span class="card-title">Proposals</span><span class="filter-count">5 proposals</span></div>
+            <div class="proposals-list">
+              <div class="prop-item prop-item--pending">
+                <div class="pi-status"><span class="stage-badge stage-proposal">Pending Approval</span></div>
+                <div class="pi-body">
+                  <div class="pi-client">ABC Tech Pvt Ltd</div>
+                  <div class="pi-detail">Prestige Tech Park · ₹138/sq.ft · 50,000 sq.ft · 5-year lease</div>
+                  <div class="pi-value">Annual Value: <strong>&#8377;8.28 Cr</strong> + FM Bundle &#8377;4.45L/mo</div>
+                </div>
+                <div class="pi-actions">
+                  <button class="btn-primary-red" onclick="switchView('copilot')">Review &amp; Approve</button>
+                  <button class="btn-secondary">Download PDF</button>
+                </div>
+              </div>
+              <div class="prop-item">
+                <div class="pi-status"><span class="stage-badge stage-negotiation">Under Negotiation</span></div>
+                <div class="pi-body">
+                  <div class="pi-client">Wipro Ltd — Chennai IT Park</div>
+                  <div class="pi-detail">RMZ Millennia · ₹142/sq.ft · 65,000 sq.ft · 5-year lease</div>
+                  <div class="pi-value">Annual Value: <strong>&#8377;11.1 Cr</strong> + FM &#8377;5.6L/mo</div>
+                </div>
+                <div class="pi-actions"><button class="btn-secondary">View Proposal</button></div>
+              </div>
+              <div class="prop-item">
+                <div class="pi-status"><span class="stage-badge stage-shortlist">Draft</span></div>
+                <div class="pi-body">
+                  <div class="pi-client">Cognizant — Bengaluru Whitefield</div>
+                  <div class="pi-detail">Brigade Tech Garden · ₹141/sq.ft · 48,000 sq.ft · 5-year lease</div>
+                  <div class="pi-value">Annual Value: <strong>&#8377;8.1 Cr</strong> · FM not yet bundled</div>
+                </div>
+                <div class="pi-actions"><button class="btn-secondary">Complete Draft</button></div>
+              </div>
+              <div class="prop-item prop-item--won">
+                <div class="pi-status"><span class="stage-badge stage-won">Won ✓</span></div>
+                <div class="pi-body">
+                  <div class="pi-client">TCS Ltd — Pune Hinjewadi</div>
+                  <div class="pi-detail">Panchshil Towers · ₹118/sq.ft · 35,000 sq.ft · 3-year lease</div>
+                  <div class="pi-value">Annual Value: <strong>&#8377;4.96 Cr</strong> + FM &#8377;3.2L/mo Active</div>
+                </div>
+                <div class="pi-actions"><button class="btn-secondary">View Signed</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /view-proposals -->
+
+      <!-- ══ VIEW: NEGOTIATIONS ═════════════════════════════ -->
+      <div class="view" id="view-negotiations">
+        <div class="dash-body">
+          <div class="vw-grid-2">
+            <div class="card">
+              <div class="card-head-row"><span class="card-title">Active Negotiation — ABC Tech Pvt Ltd</span><span class="badge-red">Live</span></div>
+              <div class="neg-deal-row"><span class="neg-label">Property</span><strong>Prestige Tech Park, Whitefield</strong></div>
+              <div class="neg-deal-row"><span class="neg-label">JLL Ask</span><strong>₹138/sq.ft (All Inclusive)</strong></div>
+              <div class="neg-deal-row"><span class="neg-label">Client Counter</span><strong>₹133/sq.ft</strong></div>
+              <div class="neg-deal-row"><span class="neg-label">BATNA</span><strong>₹135 + 2-month rent-free</strong></div>
+              <div class="neg-deal-row"><span class="neg-label">Win Probability</span><strong class="green-text">73%</strong></div>
+              <div class="card-head-row" style="margin-top:16px"><span class="card-title">AI Talking Points</span></div>
+              <ul class="tactics-list">
+                <li>Market avg ₹142 — JLL at ₹138 is already 2.8% below market. Anchor on this data point first.</li>
+                <li>Offer 2-month rent-free (not rent reduction) to protect headline rate for renewal clauses.</li>
+                <li>JLL's integrated FM saves ABC Tech ₹6–8L/year vs separately sourced facility management.</li>
+                <li>If CBRE is quoted at ₹145, JLL saves ABC Tech ₹7/sqft = ₹42L/year at 50,000 sqft.</li>
+                <li>Prestige is the only Grade A+ property available Jul 2026 — next best is Aug 2026 (Embassy).</li>
+              </ul>
+            </div>
+            <div class="card">
+              <div class="card-head-row"><span class="card-title">Concession Tracker</span></div>
+              <table class="data-tbl">
+                <thead><tr><th>Concession</th><th>Cost to JLL</th><th>Offered?</th></tr></thead>
+                <tbody>
+                  <tr><td>2-month rent-free</td><td>₹1.38 Cr (1-time)</td><td><span class="green-text">✓ Offered</span></td></tr>
+                  <tr><td>Rent reduction to ₹135</td><td>₹15L/yr recurring</td><td><span class="muted-text">Hold</span></td></tr>
+                  <tr><td>Free FM for 3 months</td><td>₹13.35L (1-time)</td><td><span class="muted-text">Reserve</span></td></tr>
+                  <tr><td>Fit-out advisory (free)</td><td>~₹8L (1-time)</td><td><span class="orange-text">Proposed</span></td></tr>
+                </tbody>
+              </table>
+              <div class="card-head-row" style="margin-top:16px"><span class="card-title">Other Active Negotiations</span></div>
+              <div class="mini-neg-row"><span>Wipro Ltd — Chennai</span><span class="stage-badge stage-negotiation">Round 2</span></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /view-negotiations -->
+
+      <!-- ══ VIEW: FM SERVICES ══════════════════════════════ -->
+      <div class="view" id="view-fm-services">
+        <div class="dash-body">
+          <div class="vw-grid-2">
+            <div class="card">
+              <div class="card-head-row"><span class="card-title">FM Services Catalog</span></div>
+              <table class="data-tbl">
+                <thead><tr><th>Service</th><th>Basic</th><th>Standard</th><th>Premium</th></tr></thead>
+                <tbody>
+                  <tr><td>☕ Pantry Management</td><td>₹80K/mo</td><td class="col-best">₹1.2L/mo</td><td>₹1.8L/mo</td></tr>
+                  <tr><td>✎ Stationery &amp; Supplies</td><td>₹25K/mo</td><td class="col-best">₹40K/mo</td><td>₹60K/mo</td></tr>
+                  <tr><td>⬥ Washroom Services</td><td>₹40K/mo</td><td class="col-best">₹60K/mo</td><td>₹90K/mo</td></tr>
+                  <tr><td>⚡ Electrical Maintenance</td><td>₹50K/mo</td><td class="col-best">₹75K/mo</td><td>₹1.1L/mo</td></tr>
+                  <tr><td>⚙ Plumbing Services</td><td>₹30K/mo</td><td class="col-best">₹50K/mo</td><td>₹75K/mo</td></tr>
+                  <tr><td>👥 General Ops Support</td><td>₹70K/mo</td><td class="col-best">₹1.0L/mo</td><td>₹1.5L/mo</td></tr>
+                  <tr><td>🌿 Housekeeping</td><td>₹60K/mo</td><td>₹90K/mo</td><td>₹1.3L/mo</td></tr>
+                  <tr><td>🔒 Security (supplemental)</td><td>₹1.0L/mo</td><td>₹1.5L/mo</td><td>₹2.2L/mo</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card">
+              <div class="card-head-row"><span class="card-title">ABC Tech Bundle (Standard Tier)</span><span class="badge-green">Active</span></div>
+              <div class="fm-list" id="fmListView" style="padding:0"></div>
+              <div class="fm-total-row"><span class="fm-total-lbl">Est. Monthly FM Cost</span><span class="fm-total-amt" id="fmTotalAmtView">&#8377; 4,45,000</span></div>
+              <button class="fm-add-proposal-btn" style="margin:10px 0 0" id="fmAddToProposal2">Add FM Bundle to Proposal</button>
+              <div class="card-head-row" style="margin-top:18px"><span class="card-title">Active FM Contracts</span></div>
+              <div class="mini-neg-row"><span>TCS Ltd, Pune</span><span class="green-text">&#8377;3.2L/mo · Active</span></div>
+              <div class="mini-neg-row"><span>Accenture India (Upsell)</span><span class="orange-text">&#8377;8.1L/mo · Pitching</span></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /view-fm-services -->
+
+      <!-- ══ VIEW: WIN / LOSS ═══════════════════════════════ -->
+      <div class="view" id="view-winloss">
+        <div class="dash-body">
+          <div class="vw-grid-3-kpi">
+            <div class="card kpi-stat-card"><div class="kpi-stat-val green-text">4</div><div class="kpi-stat-lbl">Deals Won (Q2)</div><div class="kpi-stat-sub">↑ 1 vs Q1</div></div>
+            <div class="card kpi-stat-card"><div class="kpi-stat-val red-text">1</div><div class="kpi-stat-lbl">Deals Lost (Q2)</div><div class="kpi-stat-sub">→ same as Q1</div></div>
+            <div class="card kpi-stat-card"><div class="kpi-stat-val">38%</div><div class="kpi-stat-lbl">Win Rate</div><div class="kpi-stat-sub">Industry avg: 32%</div></div>
+            <div class="card kpi-stat-card"><div class="kpi-stat-val green-text">73%</div><div class="kpi-stat-lbl">FM Attach Rate</div><div class="kpi-stat-sub">↑ from 55% Q1</div></div>
+            <div class="card kpi-stat-card"><div class="kpi-stat-val">&#8377;18.7 Cr</div><div class="kpi-stat-lbl">Won Revenue (Q2)</div><div class="kpi-stat-sub">Lease + FM combined</div></div>
+            <div class="card kpi-stat-card"><div class="kpi-stat-val orange-text">1</div><div class="kpi-stat-lbl">FM Upsell Active</div><div class="kpi-stat-sub">from lost bid</div></div>
+          </div>
+          <div class="card">
+            <div class="card-head-row"><span class="card-title">Deal Outcome History</span></div>
+            <table class="data-tbl">
+              <thead><tr><th>Client</th><th>Location</th><th>Outcome</th><th>Reason</th><th>FM Revenue</th><th>FM Upsell?</th></tr></thead>
+              <tbody>
+                <tr><td>TCS Ltd</td><td>Pune</td><td><span class="stage-badge stage-won">Won</span></td><td>Best price + FM integration</td><td class="green-text">₹3.2L/mo Active</td><td>—</td></tr>
+                <tr><td>Mindtree</td><td>Bengaluru</td><td><span class="stage-badge stage-won">Won</span></td><td>Availability advantage (Q1 delivery)</td><td class="green-text">₹2.1L/mo Active</td><td>—</td></tr>
+                <tr><td>Mphasis</td><td>Bengaluru ORR</td><td><span class="stage-badge stage-won">Won</span></td><td>JLL 6% below CBRE quote</td><td class="orange-text">₹1.8L/mo (pending)</td><td>—</td></tr>
+                <tr><td>Capgemini</td><td>Hyderabad</td><td><span class="stage-badge stage-won">Won</span></td><td>Grade A+ exclusive — only JLL had listing</td><td class="green-text">₹4.4L/mo Active</td><td>—</td></tr>
+                <tr class="tr-lost"><td>Accenture India</td><td>Mumbai BKC</td><td><span class="stage-badge stage-intake">Lost to CBRE</span></td><td>CBRE incumbency + TI allowance ₹600/sqft</td><td class="muted-text">₹0</td><td><span class="stage-badge stage-fm">FM Pitch Active ₹8.1L/mo</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div><!-- /view-winloss -->
+
+      <!-- ══ VIEW: PIPELINE ═════════════════════════════════ -->
+      <div class="view" id="view-pipeline">
+        <div class="dash-body">
+          <div class="card"><div class="card-head-row"><span class="card-title">Revenue Pipeline — FY 2026</span></div>
+            <div class="pipe-stages">
+              <div class="pipe-stage"><div class="ps-label">Qualification</div><div class="ps-count">3</div><div class="ps-value">₹18.4 Cr</div><div class="ps-bar" style="height:30px;background:#e2e8f0"></div></div>
+              <div class="pipe-stage"><div class="ps-label">Requirements</div><div class="ps-count">4</div><div class="ps-value">₹52.2 Cr</div><div class="ps-bar" style="height:50px;background:#bfdbfe"></div></div>
+              <div class="pipe-stage"><div class="ps-label">Shortlisting</div><div class="ps-count">3</div><div class="ps-value">₹31.4 Cr</div><div class="ps-bar" style="height:42px;background:#93c5fd"></div></div>
+              <div class="pipe-stage" style="border-color:var(--red)"><div class="ps-label" style="color:var(--red)">Proposal</div><div class="ps-count" style="color:var(--red)">5</div><div class="ps-value" style="color:var(--red)">₹48.6 Cr</div><div class="ps-bar" style="height:68px;background:var(--red)"></div></div>
+              <div class="pipe-stage"><div class="ps-label">Negotiation</div><div class="ps-count">2</div><div class="ps-value">₹20.1 Cr</div><div class="ps-bar" style="height:38px;background:#fca5a5"></div></div>
+              <div class="pipe-stage" style="border-color:#10b981"><div class="ps-label" style="color:#10b981">Won</div><div class="ps-count" style="color:#10b981">4</div><div class="ps-value" style="color:#10b981">₹18.7 Cr</div><div class="ps-bar" style="height:45px;background:#10b981"></div></div>
+              <div class="pipe-stage" style="border-color:#7c3aed"><div class="ps-label" style="color:#7c3aed">FM Upsell</div><div class="ps-count" style="color:#7c3aed">2</div><div class="ps-value" style="color:#7c3aed">₹14.6 Cr</div><div class="ps-bar" style="height:36px;background:#7c3aed"></div></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-head-row"><span class="card-title">Proposal Stage — Breakdown (₹48.6 Cr)</span></div>
+            <table class="data-tbl">
+              <thead><tr><th>Client</th><th>Location</th><th>Value</th><th>FM Potential</th><th>Win Prob.</th></tr></thead>
+              <tbody>
+                <tr class="tr-highlight"><td>ABC Tech Pvt Ltd</td><td>Bengaluru ORR</td><td>₹8.3 Cr</td><td>₹4.45L/mo</td><td class="green-text">73%</td></tr>
+                <tr><td>HCL Technologies</td><td>Bengaluru ORR</td><td>₹15.6 Cr</td><td>₹7.2L/mo</td><td>61%</td></tr>
+                <tr><td>Cognizant</td><td>Bengaluru Whitefield</td><td>₹6.8 Cr</td><td>₹3.1L/mo</td><td>55%</td></tr>
+                <tr><td>Tech Mahindra</td><td>Noida Sec 62</td><td>₹9.4 Cr</td><td>₹4.0L/mo</td><td>48%</td></tr>
+                <tr><td>LTIMindtree</td><td>Hyderabad HITEC</td><td>₹8.5 Cr</td><td>₹3.8L/mo</td><td>42%</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div><!-- /view-pipeline -->
+
+      <!-- ══ VIEW: REPORTS ══════════════════════════════════ -->
+      <div class="view" id="view-reports">
+        <div class="dash-body">
+          <div class="card">
+            <div class="card-head-row"><span class="card-title">Q2 FY2026 — Management Summary</span><button class="btn-secondary" style="font-size:11.5px;padding:5px 12px">Export PDF</button></div>
+            <div class="vw-grid-2">
+              <table class="data-tbl">
+                <thead><tr><th>Metric</th><th>Q1 FY26</th><th>Q2 FY26</th><th>Change</th></tr></thead>
+                <tbody>
+                  <tr><td>Deals Won</td><td>3</td><td>4</td><td class="green-text">↑ +1</td></tr>
+                  <tr><td>Deals Lost</td><td>1</td><td>1</td><td class="muted-text">→ —</td></tr>
+                  <tr><td>Win Rate</td><td>30%</td><td>38%</td><td class="green-text">↑ +8pp</td></tr>
+                  <tr><td>Lease Revenue</td><td>₹12.3 Cr</td><td>₹18.7 Cr</td><td class="green-text">↑ +52%</td></tr>
+                  <tr><td>FM Revenue/mo</td><td>₹6.2L</td><td>₹11.1L</td><td class="green-text">↑ +79%</td></tr>
+                  <tr><td>FM Attach Rate</td><td>55%</td><td>73%</td><td class="green-text">↑ +18pp</td></tr>
+                  <tr><td>Avg Deal Size</td><td>₹4.1 Cr</td><td>₹4.7 Cr</td><td class="green-text">↑ +15%</td></tr>
+                  <tr><td>Pipeline Value</td><td>₹36.2 Cr</td><td>₹48.6 Cr</td><td class="green-text">↑ +34%</td></tr>
+                </tbody>
+              </table>
+              <div>
+                <div class="card-head-row"><span class="card-title">Top Sub-markets (Q2)</span></div>
+                <div class="mkt-bar-item"><span>Bengaluru ORR</span><div class="mkt-bar-fill" style="width:80%;background:#2563eb"></div><span>₹22.4 Cr</span></div>
+                <div class="mkt-bar-item"><span>Hyderabad</span><div class="mkt-bar-fill" style="width:50%;background:#7c3aed"></div><span>₹13.2 Cr</span></div>
+                <div class="mkt-bar-item"><span>Chennai</span><div class="mkt-bar-fill" style="width:38%;background:#10b981"></div><span>₹9.8 Cr</span></div>
+                <div class="mkt-bar-item"><span>Pune</span><div class="mkt-bar-fill" style="width:22%;background:#f59e0b"></div><span>₹5.4 Cr</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /view-reports -->
+
+      <!-- ══ VIEW: KNOWLEDGE CENTER ════════════════════════ -->
+      <div class="view" id="view-knowledge">
+        <div class="dash-body">
+          <div class="card">
+            <div class="card-head-row"><span class="card-title">Knowledge Center</span></div>
+            <input type="text" class="rfg-inp" placeholder="Search market data, templates, past deals..." style="margin-bottom:14px;font-size:13px" />
+            <div class="kb-grid">
+              <div class="kb-card"><div class="kb-ico">📊</div><div class="kb-title">Market Reports</div><div class="kb-sub">Q1 2025 Bengaluru Office Report · CBRE Quarterly Data · Knight Frank India Outlook</div></div>
+              <div class="kb-card"><div class="kb-ico">📄</div><div class="kb-title">Proposal Templates</div><div class="kb-sub">Standard Lease Proposal · FM Bundle Proposal · Win/Loss Report Template</div></div>
+              <div class="kb-card"><div class="kb-ico">🏆</div><div class="kb-title">Past Deals</div><div class="kb-sub">TCS Pune (2026) · Mindtree Bengaluru (2025) · Capgemini Hyderabad (2025)</div></div>
+              <div class="kb-card"><div class="kb-ico">💡</div><div class="kb-title">Benchmark Data</div><div class="kb-sub">Bengaluru ORR: ₹138–155/sqft · Whitefield: ₹130–148/sqft · Manyata: ₹140–158/sqft</div></div>
+              <div class="kb-card"><div class="kb-ico">⚖️</div><div class="kb-title">Compliance &amp; Legal</div><div class="kb-sub">Model Lease Agreement · RERA Bengaluru Compliance · FM Contract Terms</div></div>
+              <div class="kb-card"><div class="kb-ico">❓</div><div class="kb-title">FAQs</div><div class="kb-sub">How to use AI agent · Approval workflow · FM upsell playbook · Escalation matrix</div></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /view-knowledge -->
+
+    </div><!-- /view-container -->
+  </main><!-- /main-content -->
+
+  <!-- ─── RIGHT PANEL ───────────────────────────────────────── -->
+  <aside class="right-panel">
+    <div class="rp-top">
+      <div class="opp-bar">
+        <select class="opp-sel" id="oppSelect"><option value="">&#8212; Select Opportunity &#8212;</option></select>
+        <button class="opp-new-btn" id="newOppToggle" title="New opportunity">+</button>
+      </div>
+      <div class="new-opp-form" id="newOppForm">
+        <input type="text" id="newClientInput" class="new-opp-inp" placeholder="Client name (e.g. Infosys Bengaluru)" />
+        <div class="new-opp-row">
+          <button class="btn-create" id="createOppBtn">Create</button>
+          <button class="btn-cancel-sm" id="cancelOppBtn">Cancel</button>
+        </div>
+      </div>
+      <div class="copilot-hd">
+        <span class="copilot-spark">&#10022;</span>
+        <div>
+          <div class="copilot-name">JLL Copilot</div>
+          <div class="copilot-tag" id="copilotTag">Your AI Bidding Assistant</div>
+        </div>
+      </div>
+      <div class="chat-win" id="chatWin">
+        <div class="chat-greet" id="chatGreet">
+          <p>Hi Neha! &#128075;</p>
+          <p class="greet-sub">Click <strong>Run AI Demo</strong> to see the full agent workflow, or select an opportunity to begin.</p>
+        </div>
+      </div>
+      <div class="qa-list" id="qaList">
+        <button class="qa-btn" data-msg="Find the best matching properties for the current client requirements">Find best matching properties</button>
+        <button class="qa-btn" data-msg="Compare competitor proposals and show how JLL can win this deal">Compare competitor proposals</button>
+        <button class="qa-btn" data-msg="Draft a comprehensive bid proposal for the top shortlisted property">Draft bid proposal</button>
+        <button class="qa-btn" data-msg="Recommend the most relevant FM services bundle for this client">Recommend FM services</button>
+        <button class="qa-btn" data-msg="Give me negotiation talking points and strategy for this opportunity">Negotiation strategy</button>
+      </div>
+      <div class="chat-bar">
+        <input type="text" id="chatInput" class="chat-inp" placeholder="Ask me anything..." />
+        <button class="chat-send" id="sendBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2" fill="currentColor" stroke="none"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="rp-bottom">
+      <button class="fm-toggle-bar" id="fmToggleBar">
+        <span class="fm-toggle-icon">&#9749;</span>
+        <span class="fm-toggle-label">Recommended FM Services</span>
+        <span class="fm-toggle-amt" id="fmTotalDisplay">&#8377; 4,45,000 / month</span>
+        <svg class="fm-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="fm-block" id="fmBlock">
+        <div class="fm-list" id="fmList"></div>
+        <div class="fm-total-row"><span class="fm-total-lbl">Est. Monthly FM Cost</span><span class="fm-total-amt" id="fmTotalAmt">&#8377; 4,45,000</span></div>
+        <button class="fm-add-proposal-btn" id="fmAddToProposal">Add FM Bundle to Proposal</button>
+      </div>
+    </div>
+  </aside>
+</div><!-- /app-shell -->
+
+<!-- ═══════════════ DEMO WORKFLOW MODAL ══════════════════════ -->
+<div class="overlay-modal" id="demoModal">
+  <div class="demo-modal-card">
+    <div class="demo-modal-hd">
+      <div>
+        <div class="demo-modal-title">&#129302; JLL AI Agent — Live Workflow Demo</div>
+        <div class="demo-modal-sub">Watch the AI process ABC Tech Pvt Ltd's bid in real time</div>
+      </div>
+      <button class="demo-modal-close" id="demoModalClose">&#10005;</button>
+    </div>
+    <div class="demo-progress-row">
+      <div class="demo-progress-bar"><div class="demo-progress-fill" id="demoProgressFill" style="width:0%"></div></div>
+      <span class="demo-progress-label" id="demoProgressLabel">Starting...</span>
+    </div>
+    <div class="demo-body">
+      <div class="demo-log-panel">
+        <div class="demo-panel-title">&#127381; Agent Activity Log</div>
+        <div class="demo-log" id="demoLog"></div>
+      </div>
+      <div class="demo-output-panel">
+        <div class="demo-panel-title">&#128196; Live Output</div>
+        <div class="demo-output" id="demoOutput"></div>
+      </div>
+    </div>
+    <div class="demo-modal-foot">
+      <button class="btn-secondary" id="demoModalClose2">Close Demo</button>
+      <button class="btn-primary-red" id="demoRestart">&#9654; Restart</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ NEW BID MODAL ═════════════════════════════ -->
+<div class="overlay-modal" id="newBidModal">
+  <div class="nb-card">
+    <div class="nb-hd">
+      <div class="nb-title">Create New Bid</div>
+      <button class="demo-modal-close" id="newBidClose">&#10005;</button>
+    </div>
+    <div class="nb-steps">
+      <div class="nb-step nb-step--active" data-step="1"><span class="nb-step-num">1</span><span>Client</span></div>
+      <div class="nb-step-conn"></div>
+      <div class="nb-step" data-step="2"><span class="nb-step-num">2</span><span>Location &amp; Space</span></div>
+      <div class="nb-step-conn"></div>
+      <div class="nb-step" data-step="3"><span class="nb-step-num">3</span><span>Commercial</span></div>
+      <div class="nb-step-conn"></div>
+      <div class="nb-step" data-step="4"><span class="nb-step-num">4</span><span>Services</span></div>
+    </div>
+    <!-- Step 1: Client -->
+    <div class="nb-form-step" id="nbStep1">
+      <div class="nb-section-title">Client Details</div>
+      <div class="nb-grid">
+        <div class="nb-field"><label>Company Name *</label><input class="rfg-inp" id="nb_company" placeholder="e.g. Infosys Bengaluru" /></div>
+        <div class="nb-field"><label>Industry / Business Type *</label>
+          <select class="rfg-inp" id="nb_industry"><option value="">Select industry</option><option>IT / ITES</option><option>BFSI</option><option>Manufacturing</option><option>Pharma &amp; Healthcare</option><option>Retail / E-commerce</option><option>Consulting</option><option>Other</option></select></div>
+        <div class="nb-field"><label>Contact Person</label><input class="rfg-inp" id="nb_contact" placeholder="Name &amp; designation" /></div>
+        <div class="nb-field"><label>Contact Email</label><input class="rfg-inp" id="nb_email" placeholder="name@company.com" /></div>
+      </div>
+    </div>
+    <!-- Step 2: Location & Space -->
+    <div class="nb-form-step" id="nbStep2" style="display:none">
+      <div class="nb-section-title">Location &amp; Space Requirements</div>
+      <div class="nb-grid">
+        <div class="nb-field"><label>Preferred City *</label>
+          <select class="rfg-inp" id="nb_city"><option value="">Select city</option><option>Bengaluru</option><option>Hyderabad</option><option>Mumbai</option><option>Chennai</option><option>Pune</option><option>Delhi NCR</option></select></div>
+        <div class="nb-field"><label>Location / Sub-market *</label><input class="rfg-inp" id="nb_location" placeholder="e.g. ORR, Whitefield" /></div>
+        <div class="nb-field"><label>Seating Capacity *</label><input class="rfg-inp" id="nb_seats" placeholder="e.g. 250" type="number" /></div>
+        <div class="nb-field"><label>Office Area (sq.ft)</label><input class="rfg-inp" id="nb_sqft" placeholder="e.g. 40,000 – 55,000" /></div>
+        <div class="nb-field nb-field--full"><label>Must-Have Facilities</label>
+          <div class="rfg-checks">
+            <label><input type="checkbox" name="nb_fac" value="Parking" /> Parking</label>
+            <label><input type="checkbox" name="nb_fac" value="Pantry" /> Pantry</label>
+            <label><input type="checkbox" name="nb_fac" value="Power Backup" /> Power Backup</label>
+            <label><input type="checkbox" name="nb_fac" value="24/7 Security" /> 24/7 Security</label>
+            <label><input type="checkbox" name="nb_fac" value="Conference Rooms" /> Conference Rooms</label>
+            <label><input type="checkbox" name="nb_fac" value="Gym" /> Gym</label>
+            <label><input type="checkbox" name="nb_fac" value="Cafeteria" /> Cafeteria</label>
+            <label><input type="checkbox" name="nb_fac" value="ATM" /> ATM / Bank</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Step 3: Commercial -->
+    <div class="nb-form-step" id="nbStep3" style="display:none">
+      <div class="nb-section-title">Commercial Terms</div>
+      <div class="nb-grid">
+        <div class="nb-field"><label>Budget Min (&#8377;/sq.ft) *</label><input class="rfg-inp" id="nb_budget_min" placeholder="e.g. 130" type="number" /></div>
+        <div class="nb-field"><label>Budget Max (&#8377;/sq.ft) *</label><input class="rfg-inp" id="nb_budget_max" placeholder="e.g. 150" type="number" /></div>
+        <div class="nb-field"><label>Lease Duration *</label>
+          <select class="rfg-inp" id="nb_lease"><option value="">Select duration</option><option value="36">3 Years</option><option value="48">4 Years</option><option value="60">5 Years</option><option value="84">7 Years</option><option value="120">10 Years</option></select></div>
+        <div class="nb-field"><label>Move-in Timeline *</label><input class="rfg-inp" id="nb_timeline" placeholder="e.g. Q3 2026" /></div>
+        <div class="nb-field"><label>Competitor Pricing (if known)</label><input class="rfg-inp" id="nb_comp_price" placeholder="e.g. CBRE quoted ₹145" /></div>
+        <div class="nb-field"><label>JLL Target Quote (&#8377;/sq.ft)</label><input class="rfg-inp" id="nb_jll_target" placeholder="e.g. 138" type="number" /></div>
+      </div>
+    </div>
+    <!-- Step 4: Services -->
+    <div class="nb-form-step" id="nbStep4" style="display:none">
+      <div class="nb-section-title">Service Requirements</div>
+      <div class="nb-service-type">
+        <label class="nb-svc-radio"><input type="radio" name="svc_type" value="leasing" checked /> <span>Leasing Only</span></label>
+        <label class="nb-svc-radio"><input type="radio" name="svc_type" value="both" /> <span>Leasing + FM Bundle</span></label>
+        <label class="nb-svc-radio"><input type="radio" name="svc_type" value="fm" /> <span>FM Services Only</span></label>
+      </div>
+      <div class="nb-section-title" style="margin-top:14px">FM Services (select if needed)</div>
+      <div class="rfg-checks">
+        <label><input type="checkbox" name="nb_fm" value="pantry" checked /> ☕ Pantry Management — ₹1.2L/mo</label>
+        <label><input type="checkbox" name="nb_fm" value="stationery" checked /> ✎ Stationery &amp; Supplies — ₹40K/mo</label>
+        <label><input type="checkbox" name="nb_fm" value="washroom" checked /> ⬥ Washroom Services — ₹60K/mo</label>
+        <label><input type="checkbox" name="nb_fm" value="electrical" checked /> ⚡ Electrical Maintenance — ₹75K/mo</label>
+        <label><input type="checkbox" name="nb_fm" value="plumbing" checked /> ⚙ Plumbing Services — ₹50K/mo</label>
+        <label><input type="checkbox" name="nb_fm" value="generalops" checked /> 👥 General Ops Support — ₹1.0L/mo</label>
+      </div>
+      <div class="nb-fm-est">Estimated FM Cost: <strong id="nbFmEst">&#8377; 4,25,000 / month</strong></div>
+    </div>
+    <!-- Footer -->
+    <div class="nb-foot">
+      <button class="btn-secondary" id="nbBack" style="display:none">&#8592; Back</button>
+      <div style="flex:1"></div>
+      <button class="btn-secondary" id="newBidCancel">Cancel</button>
+      <button class="btn-primary-red" id="nbNext">Next &#8594;</button>
+    </div>
+  </div>
+</div>
+
+<!-- Property detail modal -->
+<div class="prop-modal" id="propModal">
+  <div class="modal-backdrop" id="modalBackdrop"></div>
+  <div class="modal-card">
+    <button class="modal-close-btn" id="modalCloseBtn">&#10005;</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast-container" id="toastContainer"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>

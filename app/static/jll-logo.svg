@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 120" width="340" height="120" role="img" aria-label="JLL logo (recreated)">
+  <!-- Recreated by hand from a visual reference of JLL's logo, since the
+       original asset file could not be retrieved as a binary attachment.
+       Icon: 4 overlapping vertical loop outlines fanned around a shared
+       center, in JLL crimson. Wordmark: "JLL" in a bold serif face,
+       approximating the bracketed-slab-serif look of the real mark. -->
+  <g transform="translate(60,60)" fill="none" stroke="#E30613" stroke-width="9">
+    <ellipse rx="16" ry="52" transform="rotate(-34)"/>
+    <ellipse rx="16" ry="52" transform="rotate(-11)"/>
+    <ellipse rx="16" ry="52" transform="rotate(11)"/>
+    <ellipse rx="16" ry="52" transform="rotate(34)"/>
+  </g>
+  <text x="128" y="84" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="76" fill="#000000" letter-spacing="-2">JLL</text>
+</svg>

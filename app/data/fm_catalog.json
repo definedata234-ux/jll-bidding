@@ -1,0 +1,36 @@
+{
+  "currency": "USD",
+  "pricing_basis": "per_seat_per_month",
+  "categories": {
+    "pantry": {
+      "essential": { "description": "Weekly pantry restock (coffee, tea, basic snacks).", "price_per_seat_per_month": 8 },
+      "standard": { "description": "Twice-weekly restock with expanded snack/beverage range, appliance upkeep.", "price_per_seat_per_month": 14 },
+      "premium": { "description": "Daily restock, barista-style coffee setup, dietary-need options, on-call appliance maintenance.", "price_per_seat_per_month": 22 }
+    },
+    "stationery": {
+      "essential": { "description": "Monthly bulk stationery replenishment.", "price_per_seat_per_month": 2 },
+      "standard": { "description": "Bi-weekly replenishment plus on-demand requests via portal.", "price_per_seat_per_month": 4 },
+      "premium": { "description": "Weekly replenishment, custom branded supplies, dedicated ordering desk.", "price_per_seat_per_month": 7 }
+    },
+    "washroom": {
+      "essential": { "description": "Daily cleaning and basic consumable restock.", "price_per_seat_per_month": 5 },
+      "standard": { "description": "Twice-daily cleaning, premium consumables, odor control systems.", "price_per_seat_per_month": 9 },
+      "premium": { "description": "Round-the-clock attendant service, premium fixtures upkeep, hygiene audits.", "price_per_seat_per_month": 15 }
+    },
+    "electrical": {
+      "essential": { "description": "Scheduled quarterly electrical safety checks, reactive fault response within 48h.", "price_per_seat_per_month": 3 },
+      "standard": { "description": "Monthly checks, reactive response within 24h, minor fixture upgrades included.", "price_per_seat_per_month": 6 },
+      "premium": { "description": "Continuous monitoring, 4h emergency response SLA, full preventive maintenance program.", "price_per_seat_per_month": 11 }
+    },
+    "plumbing": {
+      "essential": { "description": "Reactive plumbing repairs within 48h, quarterly inspection.", "price_per_seat_per_month": 3 },
+      "standard": { "description": "Reactive repairs within 24h, monthly inspection, minor fixture replacement included.", "price_per_seat_per_month": 6 },
+      "premium": { "description": "4h emergency response SLA, full preventive maintenance, leak-detection monitoring.", "price_per_seat_per_month": 10 }
+    },
+    "general_ops": {
+      "essential": { "description": "Single part-time facilities coordinator point of contact.", "price_per_seat_per_month": 6 },
+      "standard": { "description": "Dedicated full-time on-site facilities coordinator during business hours.", "price_per_seat_per_month": 12 },
+      "premium": { "description": "Full on-site FM team, vendor management, 24x7 incident response, monthly reporting.", "price_per_seat_per_month": 20 }
+    }
+  }
+}
