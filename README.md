@@ -148,7 +148,37 @@ cd JLL-Bidding-Agent
 uvicorn app.api:app --reload --port 8000
 ```
 
-Open `http://127.0.0.1:8000` for the branded chat UI, or `http://127.0.0.1:8000/docs` for interactive API docs.
+Open `http://127.0.0.1:8000` for the full interactive dashboard, or `http://127.0.0.1:8000/docs` for the API docs.
+
+### Dashboard features
+
+The web UI is a single-page enterprise dashboard (`app/static/`) with no build step — vanilla JS, edits picked up instantly by `--reload`.
+
+**13-view navigation**
+
+| View | Purpose |
+|---|---|
+| Bid Copilot | AI chat panel + workflow stepper + property table + competitor analysis |
+| Dashboard | Performance overview, FM revenue pipeline, Q2 metrics |
+| Opportunities | Pipeline table with stage/FM badges |
+| Requirements | Editable intake form for client requirements |
+| Property Search | Card-grid view of shortlisted properties |
+| Comparisons | Property comparison matrix (12 criteria) + competitor table |
+| Proposals | Proposal cards with status tracking |
+| Negotiations | Active negotiation + concession tracker + talking points |
+| FM Services | Full FM catalog (8 services × 3 tiers) + bundle configurator |
+| Win / Loss | KPI cards + deal outcome history with FM upsell column |
+| Pipeline | Visual stage funnel + breakdown table |
+| Reports | Q2 metrics comparison + sub-market bar chart |
+| Knowledge Center | Search + 6 KB category cards |
+
+**Run AI Demo** — clicking this opens a full animated simulation of the agent workflow: bid creation → requirement extraction → property search → shortlist scoring → market benchmark → competitor intel → proposal draft → approval request → FM upsell. Shows timestamped tool-call entries on the left and live output cards on the right.
+
+**+ New Bid wizard** — 4-step structured form: (1) Client details, (2) Location & Space, (3) Commercial terms, (4) FM service selection with live monthly cost estimate. On submit, the agent analyses feasibility and populates the dashboard.
+
+**FM bundle configurator** — collapsible panel in the right sidebar; checkbox-driven selection of 6 FM services with live total recalculation and one-click "Add to Proposal."
+
+**Human approval flow** — inline Approve/Reject cards appear in the chat panel when the agent raises a `request_human_approval` tool call. Nothing is sent to the client until approved.
 
 | Method | Path | Purpose |
 |---|---|---|
